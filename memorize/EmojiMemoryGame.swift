@@ -8,25 +8,27 @@
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject{
-    static let emojisPerson: Array<String> = ["👾", "🤡", "👺", "🌚", "🌞", "👹", "💩", "🐒", "🐥", "🐁", "🌜", "🐀", "🌛", "👮🏻‍♂️", "🕵🏻‍♂️", "💂🏻‍♂️", "👨🏻‍✈️", "🥷🏻"]
-    static let emojisVehicles: Array<String> = ["🚗", "🚕", "🚎", "🚒", "🏎", "🚚", "🚛", "🚤", "🚑", "🚌", "🏍", "🚀", "🛶", "🛺", "🚃", "🚓", "🚲", "⛵️"]
-    static let emojisAnimals: Array<String> = ["🦀", "🦩", "🐎", "🐓", "🐛", "🦥", "🦦", "🦔", "🦧", "🐋", "🦐", "🦙", "🐀", "🦒", "🦍", "🦓", "🐙", "🦭 "]
+    typealias Card = MemoryGame<String>.Card
+    private static let emojisPerson: Array<String> = ["👾", "🤡", "👺", "🌚", "🌞", "👹", "💩", "🐒", "🐥", "🐁", "🌜", "🐀", "🌛", "👮🏻‍♂️", "🕵🏻‍♂️", "💂🏻‍♂️", "👨🏻‍✈️", "🥷🏻"]
+    private static let emojisVehicles: Array<String> = ["🚗", "🚕", "🚎", "🚒", "🏎", "🚚", "🚛", "🚤", "🚑", "🚌", "🏍", "🚀", "🛶", "🛺", "🚃", "🚓", "🚲", "⛵️"]
+    private static let emojisAnimals: Array<String> = ["🦀", "🦩", "🐎", "🐓", "🐛", "🦥", "🦦", "🦔", "🦧", "🐋", "🦐", "🦙", "🐀", "🦒", "🦍", "🦓", "🐙", "🦭 "]
     
-    static func createMemoryGame() -> MemoryGame<String>{
-        MemoryGame<String>(numberOfPairsOfCards: 12) {pairIndex in
+    private static func createMemoryGame() -> MemoryGame<String>{
+        MemoryGame<String>(numberOfPairsOfCards: 15) {pairIndex in
             emojisPerson[pairIndex]
         }
     }
     
-    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    @Published private var model: MemoryGame<String> = createMemoryGame()
     
-    var cards: Array<MemoryGame<String>.Card>{
+    var cards: Array<Card>{
         return model.cards
     }
     
     //MARK: - Intent(s)
-    func choose(_ card: MemoryGame<String>.Card){
+    func choose(_ card: Card){
         model.choose(card) 
     }
 }
     
+
